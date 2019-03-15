@@ -31,6 +31,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
     public RVAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_layout, parent, false);
 
+        v.setOnClickListener(MainActivity.myOnClickListener);
+
         MyViewHolder vh = new MyViewHolder(v);
 
         return vh;
