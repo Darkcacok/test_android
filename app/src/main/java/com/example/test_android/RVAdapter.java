@@ -11,15 +11,36 @@ import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
 
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
     private String[] mDataset;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         public TextView textView;
 
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v, final OnItemClickListener listener) {
             super(v);
             textView = (TextView)v.findViewById(R.id.textView);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION)
+                            listener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 
@@ -31,9 +52,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
     public RVAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_layout, parent, false);
 
-        v.setOnClickListener(MainActivity.myOnClickListener);
-
-        MyViewHolder vh = new MyViewHolder(v);
+        MyViewHolder vh = new MyViewHolder(v, mListener);
 
         return vh;
     }

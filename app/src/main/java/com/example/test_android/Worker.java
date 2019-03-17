@@ -1,8 +1,9 @@
 package com.example.test_android;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Worker {
+public class Worker implements Serializable{
 
     private String firstName;
     private String lastName;

@@ -10,12 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class WorkerFragment extends Fragment {
 
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+    public static final String TAG = "WorkerFragment";
+
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private WorkerRVAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Nullable
@@ -29,30 +42,20 @@ public class WorkerFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        Worker[] w = CreateWorkers();
+        Bundle args = getArguments();
 
-        mAdapter = new WorkerRVAdapter(w);
+        ArrayList<Worker> workers = (ArrayList<Worker>) args.getSerializable("worker");
+
+        mAdapter = new WorkerRVAdapter(workers);
         recyclerView.setAdapter(mAdapter);
 
+        mAdapter.setOnItemClickListener(new WorkerRVAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                mListener.onItemClick(position);
+            }
+        });
+
         return roorView;
-    }
-
-    private Worker[] CreateWorkers(){
-        Worker[] w = new Worker[5];
-        Date date;
-        String spec = "Менеджер";
-
-        for(int i = 0; i < 5; i++){
-            String fname = "Имя" + String.valueOf(i);
-            String lname = "Фамилия" + String.valueOf(i);
-            int year = 1996 + i - 1900;
-            int month = 0 + i;
-            int day = 1 + i;
-            date = new Date(year, month, day);
-
-            w[i] = new Worker(fname, lname, date, spec);
-        }
-
-        return w;
     }
 }

@@ -7,46 +7,71 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class WorkerRVAdapter extends RecyclerView.Adapter<WorkerRVAdapter.MyViewHolder> {
 
-    private Worker[] workers;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+    private ArrayList<Worker> workers;
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tViewfName;
         public TextView tViewlName;
         public TextView tViewAge;
 
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v, final OnItemClickListener listener) {
             super(v);
-            tViewfName = (TextView)v.findViewById(R.id.firstName);
-            tViewlName = (TextView)v.findViewById(R.id.lastName);
-            tViewAge = (TextView)v.findViewById(R.id.age);
-        }
-    }
+            tViewfName = (TextView) v.findViewById(R.id.firstName);
+            tViewlName = (TextView) v.findViewById(R.id.lastName);
+            tViewAge = (TextView) v.findViewById(R.id.age);
 
-    public WorkerRVAdapter(Worker[] workers){
-        this.workers = workers;
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener !=null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION)
+                            listener.onItemClick(position);
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public WorkerRVAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.worker_card, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.worker_card, parent, false);
 
-        MyViewHolder vh = new MyViewHolder(v);
+            MyViewHolder vh = new MyViewHolder(v, mListener);
 
-        return vh;
+            return vh;
+        }
+
+
+    public WorkerRVAdapter(ArrayList<Worker> workers){
+        this.workers = workers;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tViewfName.append(" " + workers[position].getFirstName());
-        holder.tViewlName.append(" " + workers[position].getLastName());
-        holder.tViewAge.append(" " + String.valueOf(workers[position].getAge()));
+        holder.tViewfName.setText("Имя: " + workers.get(position).getFirstName());
+        holder.tViewlName.setText("Фамилия: " + workers.get(position).getLastName());
+        holder.tViewAge.setText("Возраст: " + String.valueOf(workers.get(position).getAge()));
     }
 
     @Override
     public int getItemCount() {
-        return workers.length;
+        return workers.size();
     }
 }
