@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class AboutWorkerFragment extends Fragment {
 
 
@@ -40,12 +37,9 @@ public class AboutWorkerFragment extends Fragment {
 
         Worker w = (Worker) args.getSerializable("about_worker");
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(w.getBirthday());
-
         tViewfName.setText("Имя: " + w.getFirstName());
         tViewlName.setText("Фамилия: " + w.getLastName());
-        birthday.setText("Дата рождения: " + String.valueOf(cal.get(Calendar.DAY_OF_MONTH))  + "." + String.valueOf(cal.get(Calendar.MONTH)) + "." + String.valueOf(cal.get(Calendar.YEAR)));
+        birthday.setText("Дата рождения: " + w.getBirthday());
         tViewAge.setText("Возраст: " + w.getAge());
         specialty.setText("Должность: " + w.getSpecialty());
 

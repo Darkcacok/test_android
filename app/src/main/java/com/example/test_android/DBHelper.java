@@ -9,8 +9,10 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "company";
 
     public  DBHelper(Context contex) {
+
         super(contex, DATABASE_NAME, null, 1);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SampleDBContract.Specialty.CREATE_TABLE);

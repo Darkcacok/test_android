@@ -1,15 +1,12 @@
 package com.example.test_android;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
+public class SpecialtyRVAdapter extends RecyclerView.Adapter<SpecialtyRVAdapter.MyViewHolder>{
 
     private OnItemClickListener mListener;
 
@@ -21,7 +18,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
         mListener = listener;
     }
 
-    private String[] mDataset;
+    private Specialty[] mDataset;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
@@ -44,12 +41,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
         }
     }
 
-    public RVAdapter(String[] myDataset){
+    public SpecialtyRVAdapter(Specialty[] myDataset){
         mDataset = myDataset;
     }
 
     @Override
-    public RVAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public SpecialtyRVAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_layout, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v, mListener);
@@ -59,7 +56,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position){
-        holder.textView.setText(mDataset[position]);
+        holder.textView.setText(mDataset[position].getName());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.test_android;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,14 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
 
 public class SpecialtyFragment extends Fragment {
 
     //private static final String DESCRIBABLE_KEY = "describable_key";
 
     private RecyclerView recyclerView;
-    private RVAdapter mAdapter;
+    private SpecialtyRVAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
@@ -45,12 +43,12 @@ public class SpecialtyFragment extends Fragment {
 
         Bundle args = getArguments();
 
-        final String[] myDataset = args.getStringArray("describable_key");
+        final Specialty[] myDataset = (Specialty[]) args.getSerializable("specialty");
 
-        mAdapter = new RVAdapter(myDataset);
+        mAdapter = new SpecialtyRVAdapter(myDataset);
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new RVAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new SpecialtyRVAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 mListener.onItemClick(position);

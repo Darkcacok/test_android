@@ -25,7 +25,7 @@ public final class SampleDBContract {
 
         public static final  String CREATE_TABLE = "CREATE TABLE " +
                 TABLE_NAME + " (" +
-                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                _ID + " INTEGER PRIMARY KEY, " +
                 COLUMN_FIRSTNAME + " TEXT, " +
                 COLUMN_LASTNAME + "  TEXT, " +
                 COLUMN_DATE_OF_BIRTH + " INTEGER, " +

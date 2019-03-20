@@ -1,6 +1,5 @@
 package com.example.test_android;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +66,7 @@ public class WorkerRVAdapter extends RecyclerView.Adapter<WorkerRVAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tViewfName.setText("Имя: " + workers.get(position).getFirstName());
         holder.tViewlName.setText("Фамилия: " + workers.get(position).getLastName());
-        holder.tViewAge.setText("Возраст: " + String.valueOf(workers.get(position).getAge()));
+        holder.tViewAge.setText("Возраст: " + workers.get(position).getAge());
     }
 
     @Override
